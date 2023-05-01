@@ -2,7 +2,7 @@ import { Food, foods } from "./types/food";
 
 export function App() {
   function renderFood(food: Food) {
-    return <p>{food.name}</p>;
+    return <p key={food.id}>{food.name}</p>;
   }
 
   return (
