@@ -1,3 +1,4 @@
+import { Card } from "./shared/Card";
 import { foods } from "./types/food";
 
 export function App() {
@@ -8,10 +9,7 @@ export function App() {
       <h2>Appetizers</h2>
       <section className="flex flex-wrap">
         {appetizers.map((food) => (
-          <div
-            className="border w-96 border-cyan-600 p-4 max-w-md m-4 rounded shadow-md bg-slate-200"
-            key={food.id}
-          >
+          <Card key={food.id}>
             <div className="flex">
               <div>
                 <h3 className="text-lg font-bold">{food.name}</h3>
@@ -24,7 +22,7 @@ export function App() {
               </div>
               <img src={food.image} alt={food.name} className="h-32 ml-4" />
             </div>
-          </div>
+          </Card>
         ))}
       </section>
     </>
