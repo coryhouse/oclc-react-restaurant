@@ -1,11 +1,11 @@
-export type Food = {
+export interface Food {
   id: number;
   name: string;
   image: string;
   price: number;
   description: string;
   tags: Array<FoodTag>;
-};
+}
 
 export const foodTags = [
   "Breakfast",

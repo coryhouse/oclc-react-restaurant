@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type AnchorProps = {
   href: string;
   children: React.ReactNode;
@@ -5,8 +7,8 @@ type AnchorProps = {
 
 export function Anchor(props: AnchorProps) {
   return (
-    <a className="text-cyan-500 underline" href={props.href}>
+    <Link className="text-cyan-500 underline" to={props.href}>
       {props.children}
-    </a>
+    </Link>
   );
 }
