@@ -6,7 +6,7 @@
   "scripts": {
     "start": "run-p start:*",
     "start:app": "vite",
-    "start:api": "json-server --watch db.json --port 3001",
+    "start:api": "json-server --delay 2000 --watch db.json --port 3001",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
