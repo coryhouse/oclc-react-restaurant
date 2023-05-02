@@ -1,8 +1,9 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { FormField } from "./shared/FormField";
-import { Food, FoodTag } from "./types/food";
+import { Food } from "./types/food";
 import { useState } from "react";
 import { addFood } from "./services/foods.service";
+import { useNavigate } from "react-router-dom";
 
 export interface NewFood extends Omit<Food, "id" | "price"> {
   price: number | null;
@@ -18,6 +19,7 @@ const newFood: NewFood = {
 
 export function Admin() {
   const [food, setFood] = useState(newFood);
+  const navigate = useNavigate();
 
   function onChange(
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -31,6 +33,7 @@ export function Admin() {
       <form
         onSubmit={() => {
           addFood(food);
+          navigate("/");
         }}
       >
         <FormField>
