@@ -31,8 +31,8 @@ export function Admin() {
     <>
       <h1>Admin</h1>
       <form
-        onSubmit={() => {
-          addFood(food);
+        onSubmit={async () => {
+          await addFood(food);
           navigate("/");
         }}
       >
