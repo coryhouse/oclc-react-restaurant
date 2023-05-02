@@ -1,8 +1,11 @@
+import { Route, Routes } from "react-router-dom";
 import { Anchor } from "./shared/Anchor";
+import { Menu } from "./Menu";
+import { Admin } from "./Admin";
 
 export function App() {
   return (
-    <main>
+    <>
       <header>
         <ul>
           <li>
@@ -13,6 +16,12 @@ export function App() {
           </li>
         </ul>
       </header>
-    </main>
+      <main>
+        <Routes>
+          <Route path="/" element={<Menu />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </main>
+    </>
   );
 }
