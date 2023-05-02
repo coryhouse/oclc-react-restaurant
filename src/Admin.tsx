@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { FormField } from "./shared/FormField";
 import { Food } from "./types/food";
 import { useState } from "react";
@@ -19,6 +19,7 @@ const newFood: NewFood = {
 
 export function Admin() {
   const [food, setFood] = useState(newFood);
+  const [isSaving, setIsSaving] = useState(false);
   const navigate = useNavigate();
 
   function onChange(
@@ -31,7 +32,9 @@ export function Admin() {
     <>
       <h1>Admin</h1>
       <form
-        onSubmit={async () => {
+        onSubmit={async (event) => {
+          event.preventDefault(); // prevent page reload
+          setIsSaving(true);
           await addFood(food);
           navigate("/");
         }}
@@ -66,6 +69,7 @@ export function Admin() {
         <Button variant="contained" type="submit">
           Add Menu Item
         </Button>
+        {isSaving && <CircularProgress />}
       </form>
     </>
   );
