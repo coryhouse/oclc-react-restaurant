@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Card } from "./shared/Card";
 import { Food } from "./types/food";
-import { getFoods } from "./services/foods.service";
-import { CircularProgress } from "@mui/material";
+import { deleteFood, getFoods } from "./services/foods.service";
+import { Button, CircularProgress } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
 
 export function Menu() {
   const [search, setSearch] = useState("");
@@ -31,6 +32,16 @@ export function Menu() {
           <Card className="m-4 bg-cyan-200" key={food.id}>
             <div className="flex">
               <div>
+                <Button
+                  onClick={() => {
+                    // Optimistic delete
+                    deleteFood(food.id);
+                    setFoods([...foods.filter((f) => f.id !== food.id)]);
+                    enqueueSnackbar("Food deleted.", { variant: "success" });
+                  }}
+                >
+                  Delete
+                </Button>
                 <h3 className="text-lg font-bold">{food.name}</h3>
                 <p>{food.description}</p>
                 <p className="mt-4 mb-4">

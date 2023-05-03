@@ -1,6 +1,10 @@
 ## TODO
 
+Delete - Exercise
+Edit - Exercise
+
 Validation
+Zod
 Error handling
 Context
 Convert to Ky

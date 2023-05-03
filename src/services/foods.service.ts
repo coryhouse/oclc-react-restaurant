@@ -8,6 +8,16 @@ export async function getFoods() {
   return resp.json();
 }
 
+export async function deleteFood(id: number) {
+  const resp = await fetch("http://localhost:3001/foods/" + id, {
+    method: "DELETE",
+  });
+  if (!resp.ok) {
+    throw new Error(resp.statusText);
+  }
+  return;
+}
+
 export async function addFood(food: NewFood) {
   const resp = await fetch("http://localhost:3001/foods", {
     method: "POST",
