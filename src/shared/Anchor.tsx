@@ -7,7 +7,7 @@ type AnchorProps = {
 
 export function Anchor(props: AnchorProps) {
   return (
-    <Link className="text-cyan-500 underline" to={props.href}>
+    <Link className="underline text-cyan-500" to={props.href}>
       {props.children}
     </Link>
   );

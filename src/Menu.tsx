@@ -18,6 +18,7 @@ export function Menu() {
     fetchFoods();
   }, []);
 
+  // Derived state - Calculated from existing state on each render
   const matchingFoods = foods.filter((f) =>
     f.name.toLowerCase().includes(search)
   );
@@ -27,12 +28,12 @@ export function Menu() {
     return (
       <section className="flex flex-wrap">
         {matchingFoods.map((food) => (
-          <Card className="m-4" key={food.id}>
+          <Card className="m-4 bg-cyan-200" key={food.id}>
             <div className="flex">
               <div>
                 <h3 className="text-lg font-bold">{food.name}</h3>
                 <p>{food.description}</p>
-                <p className="mb-4 mt-4">
+                <p className="mt-4 mb-4">
                   <span className="font-bold">Tags:</span>{" "}
                   {food.tags.join(", ")}
                 </p>
@@ -55,7 +56,7 @@ export function Menu() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           id="search"
-          className="border p-1 border-gray-400"
+          className="p-1 border border-gray-400"
           type="search"
         />
       </form>
