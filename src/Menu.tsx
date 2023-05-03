@@ -9,6 +9,7 @@ export function Menu() {
   const [search, setSearch] = useState("");
   const [foods, setFoods] = useState<Food[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     async function fetchFoods() {
@@ -28,15 +29,23 @@ export function Menu() {
   function renderSection() {
     return (
       <section className="flex flex-wrap">
+        {isDeleting && (
+          <>
+            Deleting...
+            <CircularProgress />
+          </>
+        )}
         {matchingFoods.map((food) => (
           <Card className="m-4 bg-cyan-200" key={food.id}>
             <div className="flex">
               <div>
                 <Button
-                  onClick={() => {
+                  onClick={async () => {
+                    setIsDeleting(true);
                     // Optimistic delete
-                    deleteFood(food.id);
                     setFoods([...foods.filter((f) => f.id !== food.id)]);
+                    deleteFood(food.id);
+                    setIsDeleting(false);
                     enqueueSnackbar("Food deleted.", { variant: "success" });
                   }}
                 >
