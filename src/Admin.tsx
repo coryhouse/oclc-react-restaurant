@@ -1,10 +1,10 @@
-import { Button, CircularProgress, TextField } from "@mui/material";
-import { FormField } from "./shared/FormField";
+import { Button, CircularProgress } from "@mui/material";
 import { Food } from "./types/food";
 import { useState } from "react";
 import { addFood } from "./services/foods.service";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
+import { TextField } from "./shared/TextField";
 
 export interface NewFood extends Omit<Food, "id" | "price"> {
   price: number | null;
@@ -19,15 +19,6 @@ export interface Errors {
   tags?: string;
 }
 
-export interface Touched {
-  id?: boolean;
-  name?: boolean;
-  image?: boolean;
-  price?: boolean;
-  description?: boolean;
-  tags?: boolean;
-}
-
 const newFood: NewFood = {
   name: "",
   image: "",
@@ -36,10 +27,9 @@ const newFood: NewFood = {
   tags: [],
 };
 
-type Status = "idle" | "submitted" | "saving";
+export type Status = "idle" | "submitted" | "saving";
 
 export function Admin() {
-  const [touched, setTouched] = useState<Touched>({});
   const [status, setStatus] = useState<Status>("idle");
   const [food, setFood] = useState(newFood);
   const [isSaving, setIsSaving] = useState(false);
@@ -81,55 +71,34 @@ export function Admin() {
           navigate("/");
         }}
       >
-        <FormField>
-          <TextField
-            label="Name"
-            onBlur={() => setTouched({ ...touched, name: true })}
-            id="name"
-            value={food.name}
-            onChange={onChange}
-            error={
-              (touched.name || status === "submitted") && Boolean(errors.name)
-            }
-            helperText={(touched.name || status === "submitted") && errors.name}
-          />
-        </FormField>
+        <TextField
+          label="Name"
+          id="name"
+          value={food.name}
+          onChange={onChange}
+          error={errors.name}
+          status={status}
+        />
 
-        <FormField>
-          <TextField
-            label="Description"
-            onBlur={() => setTouched({ ...touched, name: true })}
-            id="description"
-            value={food.description}
-            onChange={onChange}
-            error={
-              (touched.description || status === "submitted") &&
-              Boolean(errors.description)
-            }
-            helperText={
-              (touched.description || status === "submitted") &&
-              touched.description &&
-              errors.description
-            }
-          />
-        </FormField>
+        <TextField
+          label="Description"
+          id="description"
+          value={food.description}
+          onChange={onChange}
+          error={errors.description}
+          status={status}
+        />
 
-        <FormField>
-          <TextField
-            label="Price"
-            onBlur={() => setTouched({ ...touched, name: true })}
-            id="price"
-            type="number"
-            value={food.price ?? ""}
-            onChange={onChange}
-            error={
-              (touched.price || status === "submitted") && Boolean(errors.price)
-            }
-            helperText={
-              (touched.price || status === "submitted") && errors.price
-            }
-          />
-        </FormField>
+        <TextField
+          label="Price"
+          id="price"
+          type="number"
+          value={food.price ?? ""}
+          onChange={onChange}
+          error={errors.price}
+          status={status}
+        />
+
         <Button variant="contained" type="submit">
           Add Menu Item
         </Button>
