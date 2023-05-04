@@ -1,6 +1,5 @@
 ## TODO
 
-Error handling
 Context
 ---- // Stuff above is for sure
 Edit - Exercise
@@ -18,6 +17,7 @@ Undo
 
 ## Done
 
+Error handling
 Finish Playwright test
 Delete - Exercise
 Playwright - install
