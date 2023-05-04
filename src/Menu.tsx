@@ -13,11 +13,7 @@ export function Menu() {
 
   const { user } = useUserContext();
 
-  const {
-    data: foods = [],
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: foods = [], isLoading } = useQuery({
     queryKey: ["foods"],
     queryFn: getFoods,
   });
