@@ -4,6 +4,7 @@ import { Food } from "./types/food";
 import { deleteFood, getFoods } from "./services/foods.service";
 import { Button, CircularProgress } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
+import { useUserContext } from "./context/UserContext";
 
 export function Menu() {
   const [search, setSearch] = useState("");
@@ -11,6 +12,8 @@ export function Menu() {
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
+
+  const user = useUserContext();
 
   useEffect(() => {
     async function fetchFoods() {
@@ -83,6 +86,7 @@ export function Menu() {
   return (
     <>
       <h1>Menu</h1>
+      <p>Welcome, {user.name}!</p>
       <form>
         <label htmlFor="search">Search</label>{" "}
         <input

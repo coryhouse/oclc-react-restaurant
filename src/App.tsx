@@ -3,10 +3,14 @@ import { Anchor } from "./shared/Anchor";
 import { Menu } from "./Menu";
 import { Admin } from "./Admin";
 import { ErrorBoundary } from "react-error-boundary";
+import { User, UserContextProvider } from "./context/UserContext";
+import { useState } from "react";
 
 export function App() {
+  const [user, setUser] = useState<User | null>(null);
+
   return (
-    <>
+    <UserContextProvider user={user} setUser={setUser}>
       <header>
         <ul>
           <li>
@@ -26,6 +30,6 @@ export function App() {
           </Routes>
         </ErrorBoundary>
       </main>
-    </>
+    </UserContextProvider>
   );
 }
