@@ -84,6 +84,8 @@ export function Menu() {
 
       <h2>Appetizers</h2>
 
+      {search.length > 0 && <h3>{matchingFoods.length + " foods found."}</h3>}
+
       {isLoading ? <CircularProgress /> : renderSection()}
     </>
   );

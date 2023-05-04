@@ -31,6 +31,9 @@ test("should display food, add food, and delete food", async ({ page }) => {
 
   // Search
   await page.getByLabel("Search").fill("burger");
+  await expect(
+    page.getByRole("heading", { name: "1 foods found." })
+  ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Burger" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Banana Blueberry French Toast" })
