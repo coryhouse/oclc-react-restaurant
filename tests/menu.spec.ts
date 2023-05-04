@@ -28,4 +28,11 @@ test("should display food, add food, and delete food", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Falafel" })
   ).not.toBeVisible();
+
+  // Search
+  await page.getByLabel("Search").fill("burger");
+  await expect(page.getByRole("heading", { name: "Burger" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Banana Blueberry French Toast" })
+  ).not.toBeVisible();
 });
