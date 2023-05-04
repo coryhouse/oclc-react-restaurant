@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card } from "./shared/Card";
-import { Food } from "./types/food";
 import { deleteFood, getFoods } from "./services/foods.service";
 import { Button, CircularProgress } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
