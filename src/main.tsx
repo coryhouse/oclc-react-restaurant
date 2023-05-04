@@ -8,12 +8,15 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
+import { ErrorBoundary } from "react-error-boundary";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <SnackbarProvider />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ErrorBoundary fallback={<h1>Oops! An error occurred.</h1>}>
+      <SnackbarProvider />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>
 );

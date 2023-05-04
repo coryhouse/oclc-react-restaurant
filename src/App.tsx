@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Anchor } from "./shared/Anchor";
 import { Menu } from "./Menu";
 import { Admin } from "./Admin";
+import { ErrorBoundary } from "react-error-boundary";
 
 export function App() {
   return (
@@ -17,11 +18,13 @@ export function App() {
         </ul>
       </header>
       <main>
-        <Routes>
-          <Route path="/" element={<Menu />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<h1>Page not found 😳</h1>} />
-        </Routes>
+        <ErrorBoundary fallback={<h1>Oops! An error occurred.</h1>}>
+          <Routes>
+            <Route path="/" element={<Menu />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<h1>Page not found 😳</h1>} />
+          </Routes>
+        </ErrorBoundary>
       </main>
     </>
   );

@@ -10,12 +10,20 @@ export function Menu() {
   const [foods, setFoods] = useState<Food[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchFoods() {
-      const foodsResponse = await getFoods();
-      setFoods(foodsResponse);
-      setIsLoading(false);
+      try {
+        const foodsResponse = await getFoods();
+        setFoods(foodsResponse);
+      } catch (err) {
+        enqueueSnackbar("Error fetching foods. Try reloading the page.", {
+          variant: "error",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchFoods();
   }, []);
@@ -67,6 +75,9 @@ export function Menu() {
       </section>
     );
   }
+
+  // By throwing here, the Error Boundary will catch it and display the fallback UI
+  if (error) throw new Error(error);
 
   return (
     <>
