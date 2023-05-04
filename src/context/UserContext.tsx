@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-const UserContext = createContext(null);
+const UserContext = createContext<User | null>(null);
 
 type User = {
   id: number;
@@ -16,7 +16,13 @@ export function UserContextProvider({ children }: UserContextProps) {
     id: 1,
     name: "John Doe",
   });
-  return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
-  );
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+}
+
+export function useUserContext() {
+  const context = useContext(UserContext);
+  if (context === null) {
+    throw new Error("useUserContext must be used within a UserContextProvider");
+  }
+  return context;
 }
