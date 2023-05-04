@@ -19,7 +19,7 @@ export async function deleteFood(id: number) {
   return;
 }
 
-export async function addFood(food: NewFood) {
+export async function addFood(food: NewFood): Promise<Food> {
   const resp = await fetch("http://localhost:3001/foods", {
     method: "POST",
     headers: {
