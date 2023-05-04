@@ -20,6 +20,7 @@ export function Menu() {
       } catch (err) {
         enqueueSnackbar("Error fetching foods. Try reloading the page.", {
           variant: "error",
+          autoHideDuration: null,
         });
       } finally {
         setIsLoading(false);
