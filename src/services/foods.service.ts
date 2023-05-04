@@ -1,6 +1,7 @@
 import { NewFood } from "../Admin";
+import { Food } from "../types/food";
 
-export async function getFoods() {
+export async function getFoods(): Promise<Food[]> {
   const resp = await fetch("http://localhost:3001/foods");
   if (!resp.ok) {
     throw new Error(resp.statusText);

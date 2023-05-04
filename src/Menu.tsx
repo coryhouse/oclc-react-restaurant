@@ -5,32 +5,22 @@ import { deleteFood, getFoods } from "./services/foods.service";
 import { Button, CircularProgress } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useUserContext } from "./context/UserContext";
+import { useQuery } from "@tanstack/react-query";
 
 export function Menu() {
   const [search, setSearch] = useState("");
-  const [foods, setFoods] = useState<Food[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [error, setError] = useState("");
 
   const { user } = useUserContext();
 
-  useEffect(() => {
-    async function fetchFoods() {
-      try {
-        const foodsResponse = await getFoods();
-        setFoods(foodsResponse);
-      } catch (err) {
-        enqueueSnackbar("Error fetching foods. Try reloading the page.", {
-          variant: "error",
-          autoHideDuration: null,
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchFoods();
-  }, []);
+  const {
+    data: foods = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["foods"],
+    queryFn: getFoods,
+  });
 
   // Derived state - Calculated from existing state on each render
   const matchingFoods = foods.filter((f) =>
@@ -56,7 +46,7 @@ export function Menu() {
                   onClick={async () => {
                     setIsDeleting(true);
                     // Optimistic delete
-                    setFoods([...foods.filter((f) => f.id !== food.id)]);
+                    // setFoods([...foods.filter((f) => f.id !== food.id)]);
                     deleteFood(food.id);
                     setIsDeleting(false);
                     enqueueSnackbar("Food deleted.", { variant: "success" });
@@ -79,9 +69,6 @@ export function Menu() {
       </section>
     );
   }
-
-  // By throwing here, the Error Boundary will catch it and display the fallback UI
-  if (error) throw new Error(error);
 
   return (
     <>
