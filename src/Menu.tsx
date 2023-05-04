@@ -4,17 +4,29 @@ import { deleteFood, getFoods } from "./services/foods.service";
 import { Button, CircularProgress } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useUserContext } from "./context/UserContext";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function Menu() {
   const [search, setSearch] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   const { user } = useUserContext();
+  const queryClient = useQueryClient();
 
   const { data: foods = [], isLoading } = useQuery({
     queryKey: ["foods"],
     queryFn: getFoods,
+  });
+
+  const deleteFoodMutation = useMutation({
+    mutationFn: deleteFood,
+    onSuccess: () => {
+      // Remove foods from cache and refetch
+      // other option: Remove one item from cache.
+      queryClient.invalidateQueries({ queryKey: ["foods"] });
+      enqueueSnackbar("Food deleted.", {
+        variant: "success",
+      });
+    },
   });
 
   // Derived state - Calculated from existing state on each render
@@ -26,12 +38,6 @@ export function Menu() {
   function renderSection() {
     return (
       <section className="flex flex-wrap">
-        {isDeleting && (
-          <>
-            Deleting...
-            <CircularProgress />
-          </>
-        )}
         {matchingFoods.map((food) => (
           <Card className="m-4 bg-cyan-200" key={food.id}>
             <div className="flex">
@@ -39,15 +45,14 @@ export function Menu() {
                 <Button
                   aria-label={"Delete " + food.name}
                   onClick={async () => {
-                    setIsDeleting(true);
-                    // Optimistic delete
-                    // setFoods([...foods.filter((f) => f.id !== food.id)]);
-                    deleteFood(food.id);
-                    setIsDeleting(false);
-                    enqueueSnackbar("Food deleted.", { variant: "success" });
+                    deleteFoodMutation.mutate(food.id);
                   }}
                 >
-                  Delete
+                  {deleteFoodMutation.isLoading &&
+                  // Only change the label if the mutation is for this particular food id.
+                  deleteFoodMutation.variables === food.id
+                    ? "Deleting..."
+                    : "Delete"}
                 </Button>
                 <h3 className="text-lg font-bold">{food.name}</h3>
                 <p>{food.description}</p>
