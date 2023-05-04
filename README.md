@@ -1,17 +1,24 @@
 ## TODO
 
-Delete - Exercise
-Edit - Exercise
-
-Validation
-Zod
+Finish Playwright test
 Error handling
 Context
-Convert to Ky
-Other React hooks
-custom hooks
-Testing (unit, integration, e2e)
+---- // Stuff above is for sure
+Edit - Exercise
 react-query
-react-hook-form / uncontrolled components
+Other React hooks
+Convert to Ky
+custom hooks
 NextJS
+Zod
+Unit testing
+Integration testing via mocks and msw
+react-hook-form / uncontrolled components
 Storybook / Reusable components
+Undo
+
+## Done
+
+Delete - Exercise
+Playwright - install
+Validation

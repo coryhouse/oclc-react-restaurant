@@ -40,6 +40,7 @@ export function Menu() {
             <div className="flex">
               <div>
                 <Button
+                  aria-label={"Delete " + food.name}
                   onClick={async () => {
                     setIsDeleting(true);
                     // Optimistic delete
