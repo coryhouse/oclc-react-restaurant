@@ -13,7 +13,7 @@ export function Menu() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
 
-  const user = useUserContext();
+  const { user } = useUserContext();
 
   useEffect(() => {
     async function fetchFoods() {
@@ -86,7 +86,7 @@ export function Menu() {
   return (
     <>
       <h1>Menu</h1>
-      <p>Welcome, {user.name}!</p>
+      {user && <p>Welcome, {user.name}!</p>}
       <form>
         <label htmlFor="search">Search</label>{" "}
         <input

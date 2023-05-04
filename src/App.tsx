@@ -5,6 +5,7 @@ import { Admin } from "./Admin";
 import { ErrorBoundary } from "react-error-boundary";
 import { User, UserContextProvider } from "./context/UserContext";
 import { useState } from "react";
+import { Button } from "@mui/material";
 
 export function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -12,6 +13,20 @@ export function App() {
   return (
     <UserContextProvider user={user} setUser={setUser}>
       <header>
+        {!user && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() =>
+              setUser({
+                id: 1,
+                name: "Cory",
+              })
+            }
+          >
+            Log in
+          </Button>
+        )}
         <ul>
           <li>
             <Anchor href="/">Menu</Anchor>
